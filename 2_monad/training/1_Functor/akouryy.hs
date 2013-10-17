@@ -37,11 +37,12 @@ instance Functor X where
   --               = C p
   -- fmap (f . g) (C p) = C (\h -> p (h . (f . g)))
   --                    = C (\h -> p (h . f . g))
-  --                    = C (\h -> p ((h . f) . g)) ... ?????
+  --                    = C (\h -> p ((h . f) . g)) 
+  --                    ?????
   --                    = C (\h -> (\i -> p (i . g)) (h . f))
   --                    = fmap f (C (\i -> p (i . g)))
   --                    = fmap f (fmap g (C p))
   --                    = ((fmap f) . (fmap g)) (C p)
   fmap f (C p) = C (\h -> p (h . f))
   -- fmap f (C p) = C ((\h :: b -> Int) -> p (h . f :: a -> Int) :: Int)
-main = print "OK"
+-- main = print "OK"
