@@ -16,7 +16,7 @@ data X a =
   | B a [Either Int a]
   | C ((a -> a -> Int) -> Int)
 {- edit here -}
-main = print "OK"
+main = print 0
 ```
 
 # 2 Maybe Monad
@@ -158,7 +158,7 @@ getSubfolders :: FilePath -> ListT IO FilePath
 getNSubfolders :: FilePath -> Int -> ListT IO FilePath
 {- edit here -}
 main = do path <- getLine
-          n <- readLn :: IO Int
+          n <- readLn
           l <- runListT $ getNSubfolders path n
           print l
 ```

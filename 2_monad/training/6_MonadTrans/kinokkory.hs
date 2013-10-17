@@ -15,6 +15,6 @@ getNSubfolders path n = do p <- getNSubfolders path (n-1)
                            return q
 
 main = do path <- getLine
-          n <- readLn :: IO Int
+          n <- readLn
           l <- runListT $ getNSubfolders path n
           print l
