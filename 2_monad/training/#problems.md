@@ -71,6 +71,7 @@ xのマスにいるときにaの目が出れば、x+aのマスに移動する。
 ```haskell
 import Data.List
 import Control.Monad
+
 dice :: [Int] -> Int -> Int -> [Int]
 {- edit here -}
 main = do g <- readLn
@@ -106,11 +107,20 @@ main = interact machine
 
 # 5 Random
 
-
+乱数で円周率の近似値を求める、次の関数を実装せよ。
+```haskell
+calcPi :: Int -> IO Double
+```
+calcPi n は、-1<=x<=1,-1<=y<=1の範囲で平面上の点(x,y)をn個ランダムに取り、それらの点の中で単位円に入っているものの個数を数えることで、円周率の近似値を求める。
 
 ## ひながた
 
 ```haskell
+import System.Random
+calcPi :: Int -> IO Double
+{- edit here -}
+main = do n <- readLn
+          print <$> calcPi n
 ```
 
 # 6 Monad Trans
