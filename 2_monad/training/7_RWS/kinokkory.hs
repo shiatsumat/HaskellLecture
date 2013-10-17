@@ -20,10 +20,10 @@ robot = do n <- step
            case n of
                 1 -> robot
                 0 -> return ()
-                -1 -> tell "Oops, sorry."
+                -1 -> tell "Oops, sorry.\n"
 
 main = do name <- getLine
           putStrLn $ "Robot "++name++" started!"
           s <- getContents
           let (_,_,output) = runRWS robot name (s,0)
-          putStrLn output
+          putStr output

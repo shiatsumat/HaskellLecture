@@ -131,8 +131,9 @@ getSubFolder :: FilePath -> ListT (IO FilePath)
 getNSubFolder :: FilePath -> Int -> ListT (IO FilePath)
 ```
 
-getSubFolder pathはpathで指定されたフォルダにあるサブフォルダ名を列挙する。
-getNSubFolder n pathはpathで指定されたフォルダからn回サブフォルダをたどった先にあるフォルダを列挙する。getNSubFolder 1はgetSubFolderに等しい。
+getSubFolder pathはpathで指定されたフォルダにあるサブフォルダ名を列挙する。しかしただ列挙するだけでは寂しいので標準出力に searching *path* と一行出力する。
+
+getNSubFolder n pathはpathで指定されたフォルダからn回サブフォルダをたどった先にあるフォルダを列挙する。getNSubFolder 1はgetSubFolderに等しい。しかしただ列挙するだけでは寂しいので、フォルダを見つけるごとに標準出力に I found it *n* levels down! と一行出力する。
 
 実装にあたっては、System.Directoryをインポートし、必要ならば次の関数をもちいよ。
 
@@ -164,7 +165,7 @@ main = do path <- getLine
 
 # 7 RWS
 
-RWSモナドを用いて次の二つの関数を実装せよ。
+RWSモナドをもちいて次の二つの関数を実装せよ。
 
 ```haskell
 step :: RWS String String (String,Int) Int
@@ -207,21 +208,13 @@ main = do name <- getLine
           putStrLn $ "Robot "++name++" started!"
           s <- getContents
           let (_,_,output) = runRWS robot name (s,0)
-          putStrLn output
+          putStr output
 ```
 
-# 8 Parsec A
+# 8 Parsec
 
 ## ひながた
 
-# 9 Parsec B
-
-## ひながた
-
-# 10 Parsec C
-
-## ひながた
-
-# 11 Free Monad
+# 9 Free Monad
 
 ## ひながた
