@@ -1,7 +1,0 @@
-機能やライブラリの通り一遍の説明
-深くはできないだろうけど今後の学習のために紹介する
-
-ConcurrentHaskell
-TemplateHaskell (ユーザー側の話だけ)
-QuickCheck
-量化子・存在型
