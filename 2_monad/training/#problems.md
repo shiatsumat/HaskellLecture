@@ -21,23 +21,20 @@ main = print "OK"
 
 # 2 Maybe Monad
 
-次の関数を実装せよ。
+次の関数をMaybeモナドをもちいて実装せよ。
 
 ```haskell
 readInts :: Int -> ByteString -> Maybe [Int]
 ```
 
 readInts k s は、文字列sに空白区切りで書かれている整数をk個読み込み、それらのリストをJust付きで返す。
-
 k個未満しか数が得られない場合、Nothingを返す。
 
-Data.ByteString.Char8 をインポートして、
+実装にあたっては、Data.ByteString.Char8 をインポートし、必要ならば次の関数をもちいよ。
 
 ```haskell
 readInt :: ByteString -> Maybe (Int,ByteString)
 ```
-
-を用いて実装せよ。
 
 ## ひながた
 
@@ -51,6 +48,8 @@ main = do k <- readLn
 ```
 
 # 3 List Monad
+
+次の関数をListモナドをもちいて実装せよ。
 
 ```haskell
 dice :: [Int] -> Int -> Int -> [Int]
@@ -79,6 +78,8 @@ main = do g <- readLn
 
 # 4 Lazy IO
 
+次の関数を遅延評価IOをもちいて実装せよ。
+
 ```haskell
 machine :: String -> String
 ```
@@ -103,10 +104,12 @@ main = interact machine
 
 # 5 Random
 
-乱数で円周率の近似値を求める、次の関数を実装せよ。
+次の関数を乱数とIOをもちいて実装せよ。
+
 ```haskell
 calcPi :: Int -> IO Double
 ```
+
 calcPi n は、-1<=x<=1,-1<=y<=1の範囲で平面上の点(x,y)をn個ランダムに取り、それらの点の中で単位円に入っているものの個数を数えることで、円周率の近似値を求める。
 
 ## ひながた
@@ -121,11 +124,33 @@ main = do n <- readLn
 
 # 6 Monad Trans
 
-getDirectoryContents :: FilePath -> ListT (IO FilePath)
+次の関数を実装せよ。
+
+```haskell
+getSubFolder :: FilePath -> ListT (IO FilePath)
+getNSubFolder :: FilePath -> Int -> ListT (IO FilePath)
+```
+
+getSubFolder pathはpathで指定されたフォルダにあるサブフォルダ名を列挙する。
+getNSubFolder n pathはpathで指定されたフォルダからn回サブフォルダをたどった先にあるフォルダを列挙する。getNSubFolder 1はgetSubFolderに等しい。
+
+実装にあたっては、System.Directoryをインポートし、必要ならば次の関数をもちいよ。
+
+```haskell
+getDirectoryContents :: FilePath -> IO [FilePath]
+-- フォルダ内のサブフォルダとファイルを列挙する。
+-- 最後に".."(親フォルダ)と"."(フォルダ自身)を付け加えるので注意する。
+
+doesDirectoryExist :: FilePath -> IO Bool
+-- パスがフォルダがどうか判定する。
+```
+
+なお、FilePathはStringの型シノニムである。
 
 ## ひながた
 
 ```haskell
+
 ```
 
 # 7 RWS
