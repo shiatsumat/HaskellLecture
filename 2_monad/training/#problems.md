@@ -6,7 +6,7 @@
 data X a =
     A (Int -> X a)
   | B a [Either Int a]
-  | C ((a -> Int) -> Int)
+  | C ((a -> a -> Int) -> Int)
 ```
 ## ‚Ð‚È‚ª‚½
 
@@ -14,7 +14,7 @@ data X a =
 data X a =
     A (Int -> X a)
   | B a [Either Int a]
-  | C ((a -> Int) -> Int)
+  | C ((a -> a -> Int) -> Int)
 {- edit here -}
 main = print "OK"
 ```
@@ -150,7 +150,16 @@ doesDirectoryExist :: FilePath -> IO Bool
 ## ‚Ð‚È‚ª‚½
 
 ```haskell
-
+import Control.Monad.Trans.List
+import System.Directory
+getSubfolders :: FilePath -> ListT IO FilePath
+{- edit here -}
+getNSubfolders :: FilePath -> Int -> ListT IO FilePath
+{- edit here -}
+main = do path <- getLine
+          n <- readLn :: IO Int
+          l <- runListT $ getNSubfolders path n
+          print l
 ```
 
 # 7 RWS

@@ -1,11 +1,16 @@
 import Control.Monad.Trans.List
 import System.Directory
+import Control.Monad
 import Control.Applicative
 
-getSubFolder :: FilePath -> ListT IO FilePath
-getSubFolder path = ListT $ (filter <$> doesDirectoryExist <*> getDirectoryContents path)
+getSubfolders :: FilePath -> ListT IO FilePath
+getSubfolders path = ListT $ getDirectoryContents path >>= return . map ((path++"/")++) . filter (\p -> p/=".."&&p/=".") >>= filterM doesDirectoryExist
 
-getNSubFolder :: FilePath -> Int -> ListT IO FilePath
-getNSubFolder path n = undefined
+getNSubfolders :: FilePath -> Int -> ListT IO FilePath
+getNSubfolders path 0 = return path
+getNSubfolders path n = getNSubfolders path (n-1) >>= getSubfolders
 
-main = print 0
+main = do path <- getLine
+          n <- readLn :: IO Int
+          l <- runListT $ getNSubfolders path n
+          print l
