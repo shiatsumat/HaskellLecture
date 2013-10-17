@@ -107,15 +107,34 @@ main = interact machine
 # 5 Random
 
 
-## ‚Ð‚È‚ª‚½
-
-```haskell
-```
-
-# 6 
-
 
 ## ‚Ð‚È‚ª‚½
 
 ```haskell
 ```
+
+# 6 Monad Trans
+
+
+## ‚Ð‚È‚ª‚½
+
+```haskell
+```
+
+# 7 RWS
+
+## ‚Ð‚È‚ª‚½
+
+# 8 Parsec A
+
+## ‚Ð‚È‚ª‚½
+
+
+# 9 Parsec B
+
+## ‚Ð‚È‚ª‚½
+
+# 10 Parsec C
+
+## ‚Ð‚È‚ª‚½
+
