@@ -4,38 +4,42 @@
 
 また、X Int型のデータを一つ作れ。
 
-	```haskell
-	data X a =
-	    A (Int -> (Int,a))
-	  | B [(a, Maybe a)]
-	  | C ((a -> Int) -> Int)
+```haskell
+data X a =
+    A (Int -> (Int,a))
+  | B [(a, Maybe a)]
+  | C ((a -> Int) -> Int)
+```
 
 ## ひながた
 
-	```haskell
-	data X a =
-	    A (Int -> (Int,a))
-	  | B [(a, Maybe a)]
-	  | C ((a -> Int) -> Int)
-	{- edit here -}
-	x :: X Int
-	{- edit here -}
-	main = print "OK"
+```haskell
+data X a =
+    A (Int -> (Int,a))
+  | B [(a, Maybe a)]
+  | C ((a -> Int) -> Int)
+{- edit here -}
+x :: X Int
+{- edit here -}
+main = print "OK"
+```
 
 # 2 Maybe Monad
 
 次の関数を実装せよ。
 
-	```haskell
-	readInts :: Int -> ByteString -> Maybe [Int]
+```haskell
+readInts :: Int -> ByteString -> Maybe [Int]
+```
 
 readInts k s は、文字列sに空白区切りで書かれている整数をk個読み込み、それらのリストをJust付きで返す。
 
 k個未満しか数が得られない場合、Nothingを返す。
 
 Data.ByteString.Char8 をインポートして、
-	```haskell
-	readInt :: ByteString -> Maybe (Int,ByteString)
+```haskell
+readInt :: ByteString -> Maybe (Int,ByteString)
+```
 を用いて実装せよ。
 
 ## ひながた
