@@ -2,24 +2,19 @@
 
 次のデータ型を手でFunctorのインスタンスにせよ。
 
-また、X Int型のデータを一つ作れ。
-
 ```haskell
 data X a =
-    A (Int -> (Int,a))
-  | B [(a, Maybe a)]
+    A (Int -> X a)
+  | B a [Either Int a]
   | C ((a -> Int) -> Int)
 ```
-
 ## ひながた
 
 ```haskell
 data X a =
-    A (Int -> (Int,a))
-  | B [(a, Maybe a)]
+    A (Int -> X a)
+  | B a [Either Int a]
   | C ((a -> Int) -> Int)
-{- edit here -}
-x :: X Int
 {- edit here -}
 main = print "OK"
 ```

@@ -1,14 +1,11 @@
 data X a =
-    A (Int -> (Int,a))
-  | B [(a, Maybe a)]
+    A (Int -> X a)
+  | B a [Either Int a]
   | C ((a -> Int) -> Int)
 
 instance Functor X where
-    fmap f (A g) = A $ \n -> let (m,x) = g n in (m, f x)
-    fmap f (B xs) = B $ map (\(y,z) -> (f y, fmap f z)) xs
+    fmap f (A g) = A $ \n -> fmap f (g n)
+    fmap f (B x xs) = B (f x) (map (fmap f) xs)
     fmap f (C g) = C $ \h -> g (h.f)
-
-x :: X Int
-x = C (const 123)
 
 main = print "OK"
