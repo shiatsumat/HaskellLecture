@@ -37,25 +37,29 @@ readInts k s ‚ÍA•¶Žš—ñs‚É‹ó”’‹æØ‚è‚Å‘‚©‚ê‚Ä‚¢‚é®”‚ðkŒÂ“Ç‚Ýž‚ÝA‚»‚ê‚ç‚ÌƒŠƒ
 kŒÂ–¢–ž‚µ‚©”‚ª“¾‚ç‚ê‚È‚¢ê‡ANothing‚ð•Ô‚·B
 
 Data.ByteString.Char8 ‚ðƒCƒ“ƒ|[ƒg‚µ‚ÄA
+
 ```haskell
 readInt :: ByteString -> Maybe (Int,ByteString)
 ```
+
 ‚ð—p‚¢‚ÄŽÀ‘•‚¹‚æB
 
 ## ‚Ð‚È‚ª‚½
 
-	```haskell
-	import qualified Data.ByteString.Char8 as BS
-	readInts :: Int -> BS.ByteString -> Maybe [Int]
-	{- edit here -}
-	main = do k <- readLn
+```haskell
+import qualified Data.ByteString.Char8 as BS
+readInts :: Int -> BS.ByteString -> Maybe [Int]
+{- edit here -}
+main = do k <- readLn
           s <- BS.getContents
           print $ readInts k s
+```
 
 # 3 List Monad
 
-	```haskell
-	dice :: [Int] -> Int -> Int -> [Int]
+```haskell
+dice :: [Int] -> Int -> Int -> [Int]
+```
 
 dice [a1,...,ak] g n ‚ÍA‚·‚²‚ë‚­‚ÅAa1,...,ak‚ÌkŒÂ‚Ì–Ú‚ª‘‚©‚ê‚½‚³‚¢‚±‚ë‚ðAn‰ñU‚Á‚½‚ ‚Æ‚É‚¢‚é‰Â”\«‚Ì‚ ‚éƒ}ƒX‚ðAd•¡‚È‚­¸‡‚É—ñ‹“‚·‚éƒŠƒXƒg‚ð•Ô‚·B
 
@@ -69,21 +73,23 @@ x‚Ìƒ}ƒX‚É‚¢‚é‚Æ‚«‚Éa‚Ì–Ú‚ªo‚ê‚ÎAx+a‚Ìƒ}ƒX‚ÉˆÚ“®‚·‚éB
 
 ## ‚Ð‚È‚ª‚½
 
-	```haskell
-	import Data.List
-	import Control.Monad
-	dice :: [Int] -> Int -> Int -> [Int]
-	{- edit here -}
-	main = do g <- readLn
-	          n <- readLn
-	          k <- readLn
-	          as <- replicateM k readLn
-	          print $ dice as g n
+```haskell
+import Data.List
+import Control.Monad
+dice :: [Int] -> Int -> Int -> [Int]
+{- edit here -}
+main = do g <- readLn
+          n <- readLn
+          k <- readLn
+          as <- replicateM k readLn
+          print $ dice as g n
+```
 
 # 4 Lazy IO
 
-	```haskell
-	machine :: String -> String
+```haskell
+machine :: String -> String
+```
 
 main = interact machine ‚Æ‚¢‚¤‚Ó‚¤‚É‚µ‚ÄŽg‚¤B
 
@@ -97,19 +103,24 @@ end ‚Æˆês“ü—Í‚³‚ê‚é‚ÆA"goodbye" ‚Æˆês•\Ž¦‚µI—¹‚·‚éB
 
 ## ‚Ð‚È‚ª‚½
 
-	```haskell
-	machine :: String -> String
-	{- edit here -}
-	main = interact machine
+```haskell
+machine :: String -> String
+{- edit here -}
+main = interact machine
+```
 
 # 5 Random
 
 
 ## ‚Ð‚È‚ª‚½
 
+```haskell
+```
 
 # 6 
 
 
 ## ‚Ð‚È‚ª‚½
 
+```haskell
+```
