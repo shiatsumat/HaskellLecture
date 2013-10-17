@@ -164,12 +164,54 @@ main = do path <- getLine
 
 # 7 RWS
 
+RWSモナドを用いて次の関数を実装せよ。
+
+```haskell
+step :: RWS String String (String,Int) Int
+robot :: RWS String String (String,Int) ()
+```
+
+stepはロボットの一段階を表す。
+
+RWS String String (String,Int) Int のうち、
+
+* ReaderのStringはロボットの名前を表す。
+* WriterのStringはロボットの出力を表す。
+* Stateの(String,Int)は入力文字列と内部の整数を表す。
+* 返り値のIntは次のコードを表す。1は未終了、0は正常終了、-1はエラーによる終了を表す。
+
+stepは入力文字列を一行だけ消費し、一行だけ出力する。
+
+入力文字列が
+
+* name だったら My name is *名前* ! と出力しコード1を返す。
+* sum だったら The sum is *内部の整数* . と出力しコード1を返す。
+* quit だったら Goodbye! と出力しコード0で終了する。
+* error だったら qawsedrftgyhujikolp と出力しコード-1で終了する。
+* 数字 だったら I added *数字* . と出力しコード1を返す。
+
+robotはロボットを表す。
+robotはstepがコード0か-1を返すまでstepを繰り返しつづける。
+stepがコード-1を返したら Oops, sorry. と出力する。
+
 ## ひながた
+
+```haskell
+import Control.Monad.Trans.RWS
+step :: RWS String String (String,Int) Int
+{- edit here -}
+robot :: RWS String String (String,Int) ()
+{- edit here -}
+main = do name <- getLine
+          putStrLn $ "Robot "++name++" started!"
+          s <- getContents
+          let (_,_,output) = runRWS robot name (s,0)
+          putStrLn output
+```
 
 # 8 Parsec A
 
 ## ひながた
-
 
 # 9 Parsec B
 
@@ -179,3 +221,6 @@ main = do path <- getLine
 
 ## ひながた
 
+# 11 Free Monad
+
+## ひながた
