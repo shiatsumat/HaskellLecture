@@ -121,6 +121,7 @@ main = do n <- readLn
 
 # 6 Monad Trans
 
+getDirectoryContents :: FilePath -> ListT (IO FilePath)
 
 ## ‚Ð‚È‚ª‚½
 
