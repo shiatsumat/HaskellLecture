@@ -93,11 +93,11 @@ main = interact machine というふうにして使う。
 
 この機械は内部に数字xを持っている。初期値は0である。
 
-数字n を一行入力されると、何も表示せずxにnを足す。
+数字*n* を一行入力されると、何も表示せずxにnを足す。
 
-sum と一行入力されると、"the sum is x" (xにxの値が入る) と一行表示し、xを0にリセットする。
+"sum" と一行入力されると、"the sum is *x*" と一行表示し、xを0にリセットする。
 
-end と一行入力されると、"goodbye" と一行表示し終了する。
+"end" と一行入力されると、"goodbye" と一行表示し終了する。
 
 ## ひながた
 
@@ -187,11 +187,11 @@ RWS String String (String,Int) Int のうち、
 
 入力文字列が
 
-* name だったら My name is *name*! と出力しコード1を返す。
-* sum だったら The sum is *n*. と内部の整数を出力し、内部の整数を0にリセットし、コード1を返す。
-* quit だったら Goodbye! と出力しコード0で終了する。
-* error だったら qawsedrftgyhujikolp と出力しコード-1で終了する。
-* 数字 m だったら I added *m*. と出力し、内部の整数にmを足し、コード1を返す。
+* "name" だったら "My name is *name*!" と出力しコード1を返す。
+* "sum" だったら "The sum is *n*." と内部の整数を出力し、内部の整数を0にリセットし、コード1を返す。
+* "quit" だったら "Goodbye!" と出力しコード0で終了する。
+* "error" だったら "qawsedrftgyhujikolp" と出力しコード-1で終了する。
+* 数字 "*m*" だったら "I added *m*." と出力し、内部の整数にmを足し、コード1を返す。
 
 ```haskell
 robot :: RWS String String (String,Int) ()
