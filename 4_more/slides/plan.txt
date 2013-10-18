@@ -5,3 +5,4 @@ ConcurrentHaskell
 TemplateHaskell (ユーザー側の話だけ)
 QuickCheck
 量化子・存在型
+パッケージを作って登録する

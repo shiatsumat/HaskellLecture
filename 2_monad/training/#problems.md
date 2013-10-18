@@ -34,6 +34,11 @@ k個未満しか数が得られない場合、Nothingを返す。
 
 ```haskell
 readInt :: ByteString -> Maybe (Int,ByteString)
+-- 文字列から整数をひとつ読み込み、その整数と残りの文字列とのペアをJust付きで返す
+-- 整数の読み込みに失敗した場合はNothing
+
+tail :: ByteString -> ByteString
+-- 文字列から一文字目を除いたものを返す
 ```
 
 ## ひながた
@@ -211,7 +216,7 @@ main = do name <- getLine
           putStr output
 ```
 
-# 8 Parsec
+# 8 ParsecA
 
 ## ひながた
 
