@@ -216,10 +216,23 @@ main = do name <- getLine
           putStr output
 ```
 
-# 8 ParsecA
+# 8 Parsec
+
+XMLのパーサーを書け。
+最低限の機能さえ実装すれば構わない。
 
 ## ひながた
+
+```haskell
+import Text.Parsec
+{- edit here -}
+```
 
 # 9 Free Monad
 
 ## ひながた
+
+```haskell
+import Control.Monad.Free
+{- edit here -}
+```
