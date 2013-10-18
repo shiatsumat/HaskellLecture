@@ -10,4 +10,4 @@ instance Functor X where
     fmap f (B x xs) = B (f x) (map (fmap f) xs)
     fmap f (C g) = C $ \h -> g (h`on`f)
 
-main = print "OK"
+main = print 0
