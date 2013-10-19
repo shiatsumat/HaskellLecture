@@ -37,6 +37,7 @@ takeBinaryTree :: Int -> BinaryTree a -> BinaryTree a
 {- edit here -}
 showBinaryTree :: Show a => BinaryTree a -> String
 {- edit here -}
+main = print $ takeTree 3 $ Bin 1 (Bin 2 (Bin 3 (Bin (Bin 4 5) 6) Tip) (Bin 7 Tip Tip)) (Bin 8 (Bin 9 Tip (Bin 10 11)) (Bin 12 Tip Tip))
 ```
 
 # 1b Calkin-Wilf
@@ -63,7 +64,6 @@ Calkin-Wilf–Ø‚ğ•—Dæ’Tõ‚·‚é‚±‚Æ‚É‚æ‚Á‚Ä“¾‚ç‚ê‚é—L—”—ñ
 calkinwilfTree :: BinaryTree Rational
 calkinwilfSeq :: [Rational]
 calkinwilfGet :: Int -> Rational
-calkinwilfWhere :: Rational -> Int
 ```
 
 calkinwilfTree ‚ÍACalkin-Wilf–Ø‚»‚Ì‚à‚Ì‚ğ•\‚·B
@@ -82,8 +82,6 @@ calkinwilfTree :: Tree Rational
 calkinwilfSeq :: [Rational]
 {- edit here -}
 calkinwilfGet :: Int -> Rational
-{- edit here -}
-calkinwilfWhere :: Rational -> Int
 {- edit here -}
 ```
 
