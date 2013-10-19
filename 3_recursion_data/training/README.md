@@ -59,7 +59,7 @@ Calkin-Wilf木を幅優先探索することによって得られる有理数列
 
 Binary Tree で実装したデータと関数ももちいて次の関数を実装せよ。
 
-``haskell
+```haskell
 calkinwilfTree :: BinaryTree Rational
 calkinwilfSeq :: [Rational]
 calkinwilfGet :: Int -> Rational
