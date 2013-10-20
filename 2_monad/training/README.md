@@ -242,11 +242,11 @@ xml :: Parser Contents
 ```
 
 * name は要素や属性の名前である。
-* quotedText は属性の内容となる引用符に囲まれたである。
+* quotedText は属性の内容となる引用符に囲まれた文字列である。
 * attribute は属性である。
 * text は要素の中身となる文字列である。
 * element は要素である。
-* contents は要素の中身となるものである。
+* contents は要素の中身となる要素あるいは文字列である。
 * xml は XML自体である。
 
 字句処理やXML宣言やDTDなどの細かい部分は無視してもよい。
@@ -256,8 +256,9 @@ xml :: Parser Contents
 ```haskell
 (<|>) :: (ParsecT s u m a) -> (ParsecT s u m a) -> (ParsecT s u m a)
 (<?>) :: (ParsecT s u m a) -> String -> (ParsecT s u m a)
-many, many1 :: Stream s m t => ParsecT s u m a -> ParsecT s u m [a]
+try :: ParsecT s u m a -> ParsecT s u m a
 notFollowedBy :: (Stream s m t, Show a) => ParsecT s u m a -> ParsecT s u m ()
+many, many1 :: Stream s m t => ParsecT s u m a -> ParsecT s u m [a]
 char :: Stream s m Char => Char -> ParsecT s u m Char
 string :: Stream s m Char => String -> ParsecT s u m String
 oneOf, noneOf :: Stream s m Char => [Char] -> ParsecT s u m Char
