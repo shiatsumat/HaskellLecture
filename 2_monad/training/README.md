@@ -93,11 +93,9 @@ main = interact machine というふうにして使う。
 
 この機械は内部に数字xを持っている。初期値は0である。
 
-数字*n* を一行入力されると、何も表示せずxにnを足す。
-
-"sum" と一行入力されると、"the sum is *x*" と一行表示し、xを0にリセットする。
-
-"end" と一行入力されると、"goodbye" と一行表示し終了する。
+* 数字*n* を一行入力されると、何も表示せずxにnを足す。
+* "sum" と一行入力されると、"the sum is *x*" と一行表示し、xを0にリセットする。
+* "end" と一行入力されると、"goodbye" と一行表示し終了する。
 
 ## ひながた
 
@@ -219,20 +217,82 @@ main = do name <- getLine
 # 8 Parsec
 
 XMLのパーサーを書け。
-最低限の機能さえ実装すれば構わない。
+
+```haskell
+type Name = String
+type Text = String
+data Attribute = Attribute Name Text
+  deriving (Show,Read)
+data Contents =
+    Element Name [Attribute] [Contents]
+  | Text Text
+  deriving (Show,Read)
+```
+
+以上のデータ型をもちいて、次の関数を実装せよ。
+
+```haskell
+name :: Parser Name
+quotedText :: Parser Text
+attribute :: Parser Attribute
+text :: Parser Contents
+element :: Parser Contents
+contents :: Parser Contents
+xml :: Parser Contents
+```
+
+* name は要素や属性の名前である。
+* quotedText は属性の内容となる引用符に囲まれたである。
+* attribute は属性である。
+* text は要素の中身となる文字列である。
+* element は要素である。
+* contents は要素の中身となるものである。
+* xml は XML自体である。
+
+字句処理やXML宣言やDTDなどの細かい部分は無視してもよい。
+
+実装にあたっては、 Text.ParsecとText.Parsec.Stringをインポートし、必要ならば次の関数をもちいよ。
+
+```haskell
+(<|>) :: (ParsecT s u m a) -> (ParsecT s u m a) -> (ParsecT s u m a)
+(<?>) :: (ParsecT s u m a) -> String -> (ParsecT s u m a)
+many, many1 :: Stream s m t => ParsecT s u m a -> ParsecT s u m [a]
+notFollowedBy :: (Stream s m t, Show a) => ParsecT s u m a -> ParsecT s u m ()
+char :: Stream s m Char => Char -> ParsecT s u m Char
+string :: Stream s m Char => String -> ParsecT s u m String
+oneOf, noneOf :: Stream s m Char => [Char] -> ParsecT s u m Char
+letter, alphaNum, space, anyChar :: Stream s m Char => ParsecT s u m Char
+```
 
 ## ひながた
 
 ```haskell
 import Text.Parsec
+import Text.Parsec.String
+
+type Name = String
+type Text = String
+data Attribute = Attribute Name Text
+  deriving (Show,Read)
+data Contents =
+    Element Name [Attribute] [Contents]
+  | Text Text
+  deriving (Show,Read)
+
+name :: Parser Name
 {- edit here -}
-```
-
-# 9 Free Monad
-
-## ひながた
-
-```haskell
-import Control.Monad.Free
+quotedText :: Parser Text
 {- edit here -}
+attribute :: Parser Attribute
+{- edit here -}
+text :: Parser Contents
+{- edit here -}
+element :: Parser Contents
+{- edit here -}
+contents :: Parser Contents
+{- edit here -}
+xml :: Parser Contents
+{- edit here -}
+main = do s <- getContents
+          parseTest xml s
 ```
