@@ -107,6 +107,13 @@ main = interact machine というふうにして使う。
 * "sum" と一行入力されると、"the sum is *x*" と一行表示し、xを0にリセットする。
 * "end" と一行入力されると、"goodbye" と一行表示し終了する。
 
+実装にあたって、必要ならば次の関数をもちいよ。
+
+```haskell
+lines :: String -> [String]
+-- 文字列を行ごとに分割する
+```
+
 ## ひながた
 
 ```haskell
@@ -124,6 +131,18 @@ calcPi :: Int -> IO Double
 ```
 
 calcPi n は、-1<=x<=1,-1<=y<=1の範囲で平面上の点(x,y)をn個ランダムに取り、それらの点の中で単位円に入っているものの個数を数えることで、円周率の近似値を求める。
+
+実装にあたっては、System.Randomをインポートし、必要ならば次の関数をもちいよ。
+
+```haskell
+toInteger :: Integral a => a -> Integer
+-- Integerに変換する
+-- aは整数型である
+
+fromInteger :: Num a => Integer -> a
+-- Integerから変換する
+-- 浮動小数型などにも変換できる
+```
 
 ## ひながた
 
