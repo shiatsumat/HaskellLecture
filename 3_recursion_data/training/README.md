@@ -1,7 +1,7 @@
 # 1a Binary Tree
 
 ```haskell
-data BinaryTree a = Bin a (Tree a) (Tree a) | Tip
+data BinaryTree a = Bin (BinaryTree a) a (BinaryTree a) | Tip
 ```
 
 この二分木について、次の関数を実装せよ。
@@ -11,33 +11,43 @@ takeBinaryTree :: Int -> BinaryTree a -> BinaryTree a
 showBinaryTree :: Show a => BinaryTree a -> String
 ```
 
-takeBinaryTree n t は t を根から深さ n まで切り取った二分木を表す。
+takeBinaryTree n t は t を根から深さ n まで切り取った二分木を表す。根の深さを1とする。
 
 showBinaryTree t は t を文字列に変換する。
 たとえば次のようなことである。
 
 ```
-> putStrLn $ showBinaryTree $ Bin 1 (Bin 2 (Bin 3 Tip Tip) (Bin 4 Tip Tip)) (Bin 5 (Bin 6 Tip Tip) (Bin 7 Tip Tip))
-1
-+--2
+> putStrLn $ showBinaryTree $ Bin (Bin (Bin Tip 3 Tip) 2 (Bin (Bin (Bin Tip 6 Tip) 5 (Bin Tip 7 Tip)) 4 (Bin (Bin (Bin Tip 10 Tip) 9 (Bin Tip 11 Tip)) 8 Tip))) 1 (Bin (Bin Tip 13 (Bin Tip 14 Tip)) 12 (Bin Tip 15 Tip))
    +--3
-   +--4
-+--5
-   +--6
-   +--7
++--2
+|  |     +--6
+|  |  +--5
+|  |  |  +--7
+|  +--4
+|     |     +--10
+|     |  +--9
+|     |  |  +--11
+|     +--8
+1
+|  +--13
+|  |  +--14
++--12
+   +--15
 ```
 
 ## ひながた
 
 ```haskell
-data BinaryTree a = Bin a (Tree a) (Tree a) | Tip
+data BinaryTree a = Bin (BinaryTree a) a (BinaryTree a) | Tip
+
 instance Show a => Show (BinaryTree a) where
   show = showBinaryTree
+
 takeBinaryTree :: Int -> BinaryTree a -> BinaryTree a
 {- edit here -}
 showBinaryTree :: Show a => BinaryTree a -> String
 {- edit here -}
-main = print $ takeTree 3 $ Bin 1 (Bin 2 (Bin 3 (Bin (Bin 4 5) 6) Tip) (Bin 7 Tip Tip)) (Bin 8 (Bin 9 Tip (Bin 10 11)) (Bin 12 Tip Tip))
+main = print $ takeBinaryTree 4 $ Bin (Bin (Bin Tip 3 Tip) 2 (Bin (Bin (Bin Tip 6 Tip) 5 (Bin Tip 7 Tip)) 4 (Bin (Bin (Bin Tip 10 Tip) 9 (Bin Tip 11 Tip)) 8 Tip))) 1 (Bin (Bin Tip 13 (Bin Tip 14 Tip)) 12 (Bin Tip 15 Tip))
 ```
 
 # 1b Calkin-Wilf
