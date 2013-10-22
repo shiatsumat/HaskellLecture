@@ -18,21 +18,21 @@ showBinaryTree t ‚Í t ‚ð•¶Žš—ñ‚É•ÏŠ·‚·‚éB
 
 ```
 > putStrLn $ showBinaryTree $ Bin (Bin (Bin Tip 3 Tip) 2 (Bin (Bin (Bin Tip 6 Tip) 5 (Bin Tip 7 Tip)) 4 (Bin (Bin (Bin Tip 10 Tip) 9 (Bin Tip 11 Tip)) 8 Tip))) 1 (Bin (Bin Tip 13 (Bin Tip 14 Tip)) 12 (Bin Tip 15 Tip))
-   +--3
-+--2
-|  |     +--6
-|  |  +--5
-|  |  |  +--7
-|  +--4
-|     |     +--10
-|     |  +--9
-|     |  |  +--11
-|     +--8
-1
-|  +--13
-|  |  +--14
-+--12
    +--15
++--12
+|  |  +--14
+|  +--13
+1
+|     +--8
+|     |  |  +--11
+|     |  +--9
+|     |     +--10
+|  +--4
+|  |  |  +--7
+|  |  +--5
+|  |     +--6
++--2
+   +--3
 ```
 
 ## ‚Ð‚È‚ª‚½
