@@ -163,18 +163,18 @@ getSubFolder path‚Ípath‚Åw’è‚³‚ê‚½ƒtƒHƒ‹ƒ_‚É‚ ‚éƒTƒuƒtƒHƒ‹ƒ_–¼‚ğ—ñ‹“‚·‚éB‚µ‚©‚
 
 getNSubFolder n path‚Ípath‚Åw’è‚³‚ê‚½ƒtƒHƒ‹ƒ_‚©‚çn‰ñƒTƒuƒtƒHƒ‹ƒ_‚ğ‚½‚Ç‚Á‚½æ‚É‚ ‚éƒtƒHƒ‹ƒ_‚ğ—ñ‹“‚·‚éBgetNSubFolder 1‚ÍgetSubFolder‚É“™‚µ‚¢B‚µ‚©‚µ‚½‚¾—ñ‹“‚·‚é‚¾‚¯‚Å‚Íâ‚µ‚¢‚Ì‚ÅAƒtƒHƒ‹ƒ_‚ğŒ©‚Â‚¯‚é‚²‚Æ‚É•W€o—Í‚É I found it *n* levels down! ‚Æˆêso—Í‚·‚éB
 
-À‘•‚É‚ ‚½‚Á‚Ä‚ÍASystem.Directory‚ÆControl.Monad.Trans.List‚ğƒCƒ“ƒ|[ƒg‚µA•K—v‚È‚ç‚ÎŸ‚ÌŠÖ”‚ğ‚à‚¿‚¢‚æB
+À‘•‚É‚ ‚½‚Á‚Ä‚ÍAControl.Monad.Trans.List‚ÆSystem.Directory‚ğƒCƒ“ƒ|[ƒg‚µA•K—v‚È‚ç‚ÎŸ‚ÌŠÖ”‚ğ‚à‚¿‚¢‚æB
 
 ```haskell
+lift :: (MonadTrans t, Monad m) => m a -> t m a
+-- ƒ‚ƒiƒh‚ğ‚¿ã‚°‚é
+
 getDirectoryContents :: FilePath -> IO [FilePath]
 -- ƒtƒHƒ‹ƒ_“à‚ÌƒTƒuƒtƒHƒ‹ƒ_‚Æƒtƒ@ƒCƒ‹‚ğ—ñ‹“‚·‚éB
 -- ÅŒã‚É".."(eƒtƒHƒ‹ƒ_)‚Æ"."(ƒtƒHƒ‹ƒ_©g)‚ğ•t‚¯‰Á‚¦‚é‚Ì‚Å’ˆÓ‚·‚éB
 
 doesDirectoryExist :: FilePath -> IO Bool
 -- ƒpƒX‚ªƒtƒHƒ‹ƒ_‚ª‚Ç‚¤‚©”»’è‚·‚éB
-
-lift :: (MonadTrans t, Monad m) => m a -> t m a
--- ƒ‚ƒiƒh‚ğ‚¿ã‚°‚é
 ```
 
 ‚È‚¨AFilePath‚ÍString‚ÌŒ^ƒVƒmƒjƒ€‚Å‚ ‚éB
@@ -258,7 +258,80 @@ main = do name <- getLine
           putStr output
 ```
 
-# 8 Parsec
+# 8 Parsec A
+
+”®‚Ìƒp[ƒT[‚ğ‘‚¯B
+
+* 1234.56 ‚â 1.23456e3 ‚Ì‚æ‚¤‚È•‚“®¬”‚ğˆµ‚¦‚éBÀ‘•‚Å‚Íread‚È‚Ç‚ğ—˜—p‚µ‚Ä‚æ‚¢B
+* ’†’u‰‰Zq‚Æ‚µ‚Ä +, -, *, /, ^ (‰ÁEŒ¸EæEœE™pæ) ‚ª‚ ‚éB
+* ‘O’u‰‰Zq‚Æ‚µ‚Ä +, - ‚ª‚ ‚éB
+* ‘O’u‰‰Zq‚Ì+‚Æ-‚ª—Dæ“x‚ªÅ‚‚ÅA*‚Æ/‚ª—Dæ“x‚ª“ñ”Ô–Ú‚Å¶Œ‹‡A’†’u‰‰Zq‚Ì+‚Æ-‚ª—Dæ“x‚ªO”Ô–Ú‚Å¶Œ‹‡A^‚ª—Dæ“x‚ªl”Ô–Ú‚Å‰EŒ‹‡‚Å‚ ‚éB
+* “ñˆø”ŠÖ”‚Æ‚µ‚Ä log ‚ª‚ ‚éBlog(3,9)‚Æ‚¢‚¤‚æ‚¤‚ÈŒ`‚Åg‚¦‚é (‚±‚Ìê‡‚Ì’l‚Í2‚Å‚ ‚é)B
+* () ‚Å®‚ğ‚Ü‚Æ‚ß‚ç‚ê‚éB
+
+ˆÈã‚ÌğŒ‚ğ–‚½‚·‚æ‚¤‚ÉAŸ‚ÌŠÖ”‚ğÀ‘•‚¹‚æB
+
+```haskell
+number :: Parser Double
+expression :: Parser Double
+```
+
+À‘•‚É‚ ‚½‚Á‚Ä‚ÍA Text.Parsec‚ÆText.Parsec.String‚ÆText.Parsec.Expr‚ğƒCƒ“ƒ|[ƒg‚µA•K—v‚È‚ç‚ÎŸ‚ÌŠÖ”‚ğ‚à‚¿‚¢‚æB
+
+```haskell
+(<|>) :: (ParsecT s u m a) -> (ParsecT s u m a) -> (ParsecT s u m a)
+(<?>) :: (ParsecT s u m a) -> String -> (ParsecT s u m a)
+
+try :: ParsecT s u m a -> ParsecT s u m a
+notFollowedBy :: (Stream s m t, Show a) => ParsecT s u m a -> ParsecT s u m ()
+
+many, many1 :: Stream s m t => ParsecT s u m a -> ParsecT s u m [a]
+between :: Stream s m t => ParsecT s u m open -> ParsecT s u m close -> ParsecT s u m a -> ParsecT s u m a
+option :: Stream s m t => a -> ParsecT s u m a -> ParsecT s u m a
+
+char :: Stream s m Char => Char -> ParsecT s u m Char
+string :: Stream s m Char => String -> ParsecT s u m String
+oneOf, noneOf :: Stream s m Char => [Char] -> ParsecT s u m Char
+letter, digit, alphaNum, space, anyChar :: Stream s m Char => ParsecT s u m Char
+
+buildExpressionParser :: Stream s m t => OperatorTable s u m a -> ParsecT s u m a -> ParsecT s u m a
+```
+
+‚È‚¨Aƒf[ƒ^Œ^‚Ì’è‹`‚ÍˆÈ‰º‚Ì‚Æ‚¨‚è‚Å‚ ‚éB
+
+```haskell
+data Assoc = AssocNone
+           | AssocLeft
+           | AssocRight
+-- AssocNone‚ª–³Œ‹‡AAssocLeft‚ª¶Œ‹‡AAssocRight‚ª‰EŒ‹‡
+
+data Operator s u m a = Infix (ParsecT s u m (a -> a -> a)) Assoc
+                      | Prefix (ParsecT s u m (a -> a))
+                      | Postfix (ParsecT s u m (a -> a))
+-- Infix‚ª’†’u‰‰ZqAPrefix‚ª‘O’u‰‰ZqAPostfix‚ªŒã’u‰‰Zq
+
+type OperatorTable s u m a = [[Operator s u m a]]
+-- —Dæ“x‚ª‚‚¢‡‚É‰‰Zq‚ª“ü‚Á‚Ä‚¢‚é
+```
+
+## ‚Ğ‚È‚ª‚½
+
+```haskell
+import Text.Parsec
+import Text.Parsec.String
+import Text.Parsec.Expr
+
+number :: Parser Double
+{- edit here -}
+
+expression :: Parser Double
+{- edit here -}
+
+main = do s <- getContents
+          parseTest expression s
+```
+
+# 9 Parsec B
 
 XML‚Ìƒp[ƒT[‚ğ‘‚¯B
 
@@ -300,13 +373,18 @@ xml :: Parser Contents
 ```haskell
 (<|>) :: (ParsecT s u m a) -> (ParsecT s u m a) -> (ParsecT s u m a)
 (<?>) :: (ParsecT s u m a) -> String -> (ParsecT s u m a)
+
 try :: ParsecT s u m a -> ParsecT s u m a
 notFollowedBy :: (Stream s m t, Show a) => ParsecT s u m a -> ParsecT s u m ()
+
 many, many1 :: Stream s m t => ParsecT s u m a -> ParsecT s u m [a]
+between :: Stream s m t => ParsecT s u m open -> ParsecT s u m close -> ParsecT s u m a -> ParsecT s u m a
+option :: Stream s m t => a -> ParsecT s u m a -> ParsecT s u m a
+
 char :: Stream s m Char => Char -> ParsecT s u m Char
 string :: Stream s m Char => String -> ParsecT s u m String
 oneOf, noneOf :: Stream s m Char => [Char] -> ParsecT s u m Char
-letter, alphaNum, space, anyChar :: Stream s m Char => ParsecT s u m Char
+letter, digit, alphaNum, space, anyChar :: Stream s m Char => ParsecT s u m Char
 ```
 
 ## ‚Ğ‚È‚ª‚½
