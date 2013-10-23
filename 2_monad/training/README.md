@@ -132,16 +132,12 @@ calcPi :: Int -> IO Double
 
 calcPi n ‚ÍA-1<=x<=1,-1<=y<=1‚Ì”ÍˆÍ‚Å•½–Êã‚Ì“_(x,y)‚ðnŒÂƒ‰ƒ“ƒ_ƒ€‚ÉŽæ‚èA‚»‚ê‚ç‚Ì“_‚Ì’†‚Å’PˆÊ‰~‚É“ü‚Á‚Ä‚¢‚é‚à‚Ì‚ÌŒÂ”‚ð”‚¦‚é‚±‚Æ‚ÅA‰~Žü—¦‚Ì‹ßŽ—’l‚ð‹‚ß‚éB
 
-ŽÀ‘•‚É‚ ‚½‚Á‚Ä‚ÍASystem.Random‚ðƒCƒ“ƒ|[ƒg‚µA•K—v‚È‚ç‚ÎŽŸ‚ÌŠÖ”‚ð‚à‚¿‚¢‚æB
+ŽÀ‘•‚É‚ ‚½‚Á‚Ä‚ÍASystem.Random‚ðƒCƒ“ƒ|[ƒg‚µA•K—v‚È‚ç‚ÎŽŸ‚Ì (‚¢‚¸‚ê‚©‚Ì) ŠÖ”‚ð‚à‚¿‚¢‚æB
 
 ```haskell
-toInteger :: Integral a => a -> Integer
--- Integer‚É•ÏŠ·‚·‚é
--- a‚Í®”Œ^‚Å‚ ‚é
+fromIntegral :: (Integral a, Num b) => a -> b
 
-fromInteger :: Num a => Integer -> a
--- Integer‚©‚ç•ÏŠ·‚·‚é
--- •‚“®¬”Œ^‚È‚Ç‚É‚à•ÏŠ·‚Å‚«‚é
+realToFrac :: (Real a, Fractional b) => a -> b
 ```
 
 ## ‚Ð‚È‚ª‚½
@@ -167,7 +163,7 @@ getSubFolder path‚Ípath‚ÅŽw’è‚³‚ê‚½ƒtƒHƒ‹ƒ_‚É‚ ‚éƒTƒuƒtƒHƒ‹ƒ_–¼‚ð—ñ‹“‚·‚éB‚µ‚©‚
 
 getNSubFolder n path‚Ípath‚ÅŽw’è‚³‚ê‚½ƒtƒHƒ‹ƒ_‚©‚çn‰ñƒTƒuƒtƒHƒ‹ƒ_‚ð‚½‚Ç‚Á‚½æ‚É‚ ‚éƒtƒHƒ‹ƒ_‚ð—ñ‹“‚·‚éBgetNSubFolder 1‚ÍgetSubFolder‚É“™‚µ‚¢B‚µ‚©‚µ‚½‚¾—ñ‹“‚·‚é‚¾‚¯‚Å‚ÍŽâ‚µ‚¢‚Ì‚ÅAƒtƒHƒ‹ƒ_‚ðŒ©‚Â‚¯‚é‚²‚Æ‚É•W€o—Í‚É I found it *n* levels down! ‚Æˆêso—Í‚·‚éB
 
-ŽÀ‘•‚É‚ ‚½‚Á‚Ä‚ÍASystem.Directory‚ðƒCƒ“ƒ|[ƒg‚µA•K—v‚È‚ç‚ÎŽŸ‚ÌŠÖ”‚ð‚à‚¿‚¢‚æB
+ŽÀ‘•‚É‚ ‚½‚Á‚Ä‚ÍASystem.Directory‚ÆControl.Monad.Trans.List‚ðƒCƒ“ƒ|[ƒg‚µA•K—v‚È‚ç‚ÎŽŸ‚ÌŠÖ”‚ð‚à‚¿‚¢‚æB
 
 ```haskell
 getDirectoryContents :: FilePath -> IO [FilePath]
@@ -176,6 +172,9 @@ getDirectoryContents :: FilePath -> IO [FilePath]
 
 doesDirectoryExist :: FilePath -> IO Bool
 -- ƒpƒX‚ªƒtƒHƒ‹ƒ_‚ª‚Ç‚¤‚©”»’è‚·‚éB
+
+lift :: (MonadTrans t, Monad m) => m a -> t m a
+-- ƒ‚ƒiƒh‚ðŽ‚¿ã‚°‚é
 ```
 
 ‚È‚¨AFilePath‚ÍString‚ÌŒ^ƒVƒmƒjƒ€‚Å‚ ‚éB
@@ -227,6 +226,22 @@ robot :: RWS String String (String,Int) ()
 robot‚Íƒƒ{ƒbƒg‚ð•\‚·B
 
 robot‚Ístep‚ªƒR[ƒh0‚©-1‚ð•Ô‚·‚Ü‚Åstep‚ðŒJ‚è•Ô‚µ‚Â‚Ã‚¯‚éBstep‚ªƒR[ƒh-1‚ð•Ô‚µ‚½‚ç Oops, sorry. ‚Æo—Í‚·‚éB
+
+ŽÀ‘•‚É‚ ‚½‚Á‚Ä‚ÍAControl.Monad.Trans.RWS‚ðƒCƒ“ƒ|[ƒg‚µA•K—v‚È‚ç‚ÎŽŸ‚ÌŠÖ”‚ð‚à‚¿‚¢‚æB
+
+```haskell
+ask :: MonadReader r m => m r
+-- ŠÂ‹«‚ÌŽæ“¾
+
+tell :: MonadWriter w m => w -> m ()
+-- ƒƒO‚Ö‚Ì’Ç‰Á
+
+get :: MonadState s m => m s
+-- ó‘Ô‚ÌŽæ“¾
+
+put :: MonadState s m => s -> m ()
+-- ó‘Ô‚ÌÝ’è
+```
 
 ## ‚Ð‚È‚ª‚½
 
