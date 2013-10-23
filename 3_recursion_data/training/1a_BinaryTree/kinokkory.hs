@@ -9,15 +9,15 @@ takeBinaryTree n Tip = Tip
 takeBinaryTree n (Bin l x r) = Bin (takeBinaryTree (n-1) l) x (takeBinaryTree (n-1) r)
 
 showBinaryTree :: Show a => BinaryTree a -> String
-showBinaryTree t = unlines $ fst $ go 0 t
-go :: Show a => Int -> BinaryTree a -> ([String],Int)
-go _ Tip = ([], 0)
-go i (Bin l x r)
+showBinaryTree t = unlines $ fst $ showBinaryTree' 0 t
+showBinaryTree' :: Show a => Int -> BinaryTree a -> ([String],Int)
+showBinaryTree' _ Tip = ([], 0)
+showBinaryTree' i (Bin l x r)
     | i== 0  = (sr++[sx]++sl, n)
     | i== 1  = (map ("|  "++) sr ++ ["+--"++sx] ++ map ("   "++) sl, n)
     | i== -1 = (map ("   "++) sr ++ ["+--"++sx] ++ map ("|  "++) sl, n)
-    where (sl,nl) = go 1 l
-          (sr,nr) = go (-1) r
+    where (sl,nl) = showBinaryTree' 1 l
+          (sr,nr) = showBinaryTree' (-1) r
           n = nl + 1 + nr
           sx = show x
 
