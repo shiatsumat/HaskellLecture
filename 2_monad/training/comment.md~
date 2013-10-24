@@ -75,3 +75,4 @@ replicateM n f は n 回 f を実行して結果をリストにまとめる関�
     fuga  
     piyo  
     ["hoge","fuga","piyo"]
+`

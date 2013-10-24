@@ -1,0 +1,15 @@
+# ソースコードの解説
+
+## reverse
+
+次のようにも書けるが、O(n^2)となり効率が悪い。
+
+```haskell
+reverse = foldr (\a as -> as ++ [a]) []
+```
+
+一方、こちらの実装はO(n)である。
+
+```haskell
+reverse = foldl (\as a -> a : as) []
+```

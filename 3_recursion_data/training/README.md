@@ -1,4 +1,115 @@
-# 1a Binary Tree
+# 1 Folding List
+
+次の関数をfoldlもしくはfoldrを使って実装せよ。
+
+```haskell
+length :: [a] -> Int
+-- 長さ
+-- length [1..5] = 5
+
+map :: (a -> b) -> [a] -> [b]
+-- 変換
+-- map (+1) [1..5] = [2..6]
+
+reverse :: [a] -> [a]
+-- 逆転
+-- reverse [1..5] = [5,4,3,2,1]
+
+filter :: (a -> Bool) -> [a] -> [a]
+-- 条件を満たすもののみからなるリスト
+-- filter odd [1..5] = [1,3,5]
+
+subsequences :: [a] -> [[a]]
+-- すべての部分リスト
+-- subsequences [1..3] = [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+```
+
+なお、foldlとfoldrの型は次の通りである。
+
+```haskell
+foldl :: (a -> b -> a) -> a -> [b] -> a
+-- foldl f a [x,y,z] = ((a `f` x) `f` y) `f` z
+
+foldr :: (a -> b -> b) -> b -> [a] -> b
+-- foldr f a [x,y,z] = x `f` (y `f` (z `f` a))
+```
+
+## ひながた
+
+```haskell
+import Prelude hiding (length, map, reverse, filter)
+
+length :: [a] -> Int
+length = fold{- edit here -}
+
+map :: (a -> b) -> [a] -> [b]
+map f = fold{- edit here -}
+
+reverse :: [a] -> [a]
+reverse = fold{- edit here -}
+
+filter :: (a -> Bool) -> [a] -> [a]
+filter f = fold{- edit here -}
+
+subsequences :: [a] -> [[a]]
+subsequences = fold{- edit here -}
+
+main = print $ length [1..5]
+-- main = print $ map (+1) [1..5]
+-- main = print $ reverse [1..5]
+-- main = print $ filter odd [1..5]
+-- main = print $ subsequences [1..3]
+```
+
+# 2 Unfolding List
+
+次の関数をunfoldrを用いて実装せよ。
+
+```haskell
+map :: (a -> b) -> [a] -> [b]
+-- 変換
+-- map (+1) [1..5] = [2..6]
+
+replicate :: Int -> a -> [a]
+-- 繰り返し
+-- replicate 5 1 = [1,1,1,1,1]
+
+fib :: [Int]
+-- フィボナッチ数列の無限リスト
+-- take 10 fib = [1,1,2,3,5,8,13,21,34,55]
+```
+
+ただし、unfoldrの定義は以下のとおりである。
+
+```haskell
+unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
+unfoldr f b  =
+  case f b of
+   Just (a,new_b) -> a : unfoldr f new_b
+   Nothing        -> []
+```
+
+## ひながた
+
+```haskell
+import Prelude hiding (map, replicate)
+import Data.List (unfoldr)
+
+map :: (a -> b) -> [a] -> [b]
+map f = unfoldr {- edit here -}
+
+replicate :: Int -> a -> [a]
+replicate n a = unfoldr {- edit here -}
+
+fib :: [Int]
+fib = unfoldr {- edit here -}
+
+main = print $ map (+1) [1..5]
+-- main = print $ replicate 5 1
+-- main = print $ take 10 fib
+```
+
+# 3a Binary Tree
 
 ```haskell
 data BinaryTree a = Bin (BinaryTree a) a (BinaryTree a) | Tip
@@ -62,7 +173,7 @@ Calkin-Wilf木という興味深い木がある。
 
 根は1/1であり、節点 m/n の左の子は m/(m+n) で右の子は (m+n)/n である。
 
-Calkin-Wilf木を幅優先探索することによって得られる有理数列
+Calkin-Wilf木を幅優先走査することによって得られる有理数列
 
 ```
 1/1, 1/2, 2/1, 1/3, 3/2, 2/3, 3/1, 1/4, 4/3, 3/5, 5/2, 2/5, 5/3, 3/4, 4/1, ...
@@ -80,7 +191,7 @@ calkinwilfGet :: Int -> Rational
 
 calkinwilfTree は、Calkin-Wilf木そのものである。
 
-calkinwilfSeq は、Calkin-Wilf列である。calkinwilfTreeを幅優先探索することにより実装せよ。
+calkinwilfSeq は、Calkin-Wilf列である。calkinwilfTreeを幅優先走査することにより実装せよ。
 
 calkinwilfGet n は、Calkin-Wilf列のn番目の数を返す。1番目が1/1である。Calkin-Wilf木をたどることによって O(log n) で求めよ。
 
