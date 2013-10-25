@@ -1,7 +1,7 @@
 import Prelude hiding (length, map, reverse, filter)
 
 length :: [a] -> Int
-length = foldl (\a b -> a + 1) 0
+length = foldl ((+ 1) . const) 0
 
 map :: (a -> b) -> [a] -> [b]
 map f = foldr (\a bs -> f a : bs) []
