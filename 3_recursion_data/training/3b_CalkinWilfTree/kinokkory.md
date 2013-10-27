@@ -4,8 +4,8 @@
 
 ```haskell
 calkinwilfTree :: BinaryTree Rational
-calkinwilfTree = calkinwilfTree' (1%1)
-    where calkinwilfTree' x = Bin (calkinwilfTree' (m%(m+n))) x (calkinwilfTree' ((m+n)%n))
+calkinwilfTree = go (1%1)
+    where go x = Bin (go (m%(m+n))) x (go ((m+n)%n))
             where m = numerator x
                   n = denominator x
 ```
@@ -86,12 +86,13 @@ digits‚Ån‚ğ“ñi”‚ÌŒ…‚É•ª‰ğ‚µ‚ÄA‚»‚Ìî•ñ‚ğ‚Â‚©‚Á‚ÄAfunc‚Å–Ø‚ğª‚©‚ç‰º‚Á‚Ä‚¢‚«‚
 
 ```haskell
 calkinwilfGetPrettier :: Int -> Rational
-calkinwilfGetPrettier n
-    | mod n 2 == 0 = left $ calkinwilfGetPrettier m
-    | otherwise    = right $ calkinwilfGetPrettier m
-    where m = div n 2
+calkinwilfGetPrettier n = top $ go n
+    where go n
+            | mod n 2 == 0 = left $ go $ div n 2
+            | otherwise    = right $ go $ div n 2
           left (Bin l _ _) = l
           right (Bin _ _ r) = r
+          top (Bin _ x _) = x
 ```
 
 calkinwilfGet‚Ì‰ü‘P”Å‚Å‚·BŒ³X‚Ì”Å‚Å‚ÍƒŠƒXƒg‚ğÄ‹A“I‚É¶¬‚µ‚Ä‚©‚çô‚İ‚İ‚ğ‚·‚éA‚Æ‚¢‚¤‚±‚Æ‚ğ‚µ‚Ä‚¢‚Ü‚·‚ªA‚æ‚­l‚¦‚é‚Æ“r’†‚ÅƒŠƒXƒg‚ğ‚Â‚­‚é•K—v‚Í‚È‚­‚ÄA‚±‚Ì‚æ‚¤‚É‘‚¯‚Ü‚·BƒŠƒXƒg‚ğ¶¬‚µ‚È‚¢‚±‚¿‚ç‚Ì‘‚«•û‚Ì‚Ù‚¤‚ªAƒƒ‚ƒŠŒø—¦‚ª‚æ‚­‚È‚è‚Ü‚·B

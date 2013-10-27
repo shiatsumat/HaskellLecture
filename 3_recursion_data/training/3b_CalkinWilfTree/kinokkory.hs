@@ -24,8 +24,8 @@ showBinaryTree' i (Bin l x r)
           sx = show x
 
 calkinwilfTree :: BinaryTree Rational
-calkinwilfTree = calkinwilfTree' (1%1)
-    where calkinwilfTree' x = Bin (calkinwilfTree' (m%(m+n))) x (calkinwilfTree' ((m+n)%n))
+calkinwilfTree = go (1%1)
+    where go x = Bin (go (m%(m+n))) x (go ((m+n)%n))
             where m = numerator x
                   n = denominator x
 
@@ -48,12 +48,13 @@ calkinwilfGet n =  top $ foldr func calkinwilfTree $ digits n
           top (Bin _ x _) = x
 
 calkinwilfGetPrettier :: Int -> Rational
-calkinwilfGetPrettier n
-    | mod n 2 == 0 = left $ calkinwilfGetPrettier m
-    | otherwise    = right $ calkinwilfGetPrettier m
-    where m = div n 2
+calkinwilfGetPrettier n = top $ go n
+    where go n
+            | mod n 2 == 0 = left $ go $ div n 2
+            | otherwise    = right $ go $ div n 2
           left (Bin l _ _) = l
           right (Bin _ _ r) = r
+          top (Bin _ x _) = x
 
 calkinwilfParent :: Rational -> Rational
 calkinwilfParent x

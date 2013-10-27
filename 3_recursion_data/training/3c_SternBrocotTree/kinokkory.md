@@ -15,11 +15,11 @@ sternbrocotTree = go (0,1) (1,1) (1,0)
 
 ```haskell
 simplest :: (Double,Double) -> Rational
-simplest (a,b) = simplest' sternbrocotTree (a,b)
-    where simplest' (Bin l x r) (a,b)
+simplest (a,b) = go sternbrocotTree (a,b)
+    where go (Bin l x r) (a,b)
             | a'<=x&&x<=b' = x
-            | b'<x = simplest' l (a,b)
-            | x<a' = simplest' r (a,b)
+            | b'<x = go l (a,b)
+            | x<a' = go r (a,b)
             where a' = toRational a
                   b' = toRational b
 ```
@@ -40,10 +40,10 @@ approxRational :: RealFrac a => a -> a -> Rational
 
 ```haskell
 rationals :: Integer -> [Rational]
-rationals k = rationals' sternbrocotTree k
-    where rationals' (Bin l x r) k
+rationals k = go sternbrocotTree k
+    where go (Bin l x r) k
             | denominator x + numerator x > k = []
-            | otherwise = rationals' l k ++ [x] ++ rationals' r k
+            | otherwise = go l k ++ [x] ++ go r k
 ```
 
 任意の節点について、その子は必ず分母と分子の和が大きくなっているので、深さ優先探索をすればいいです。
