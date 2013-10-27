@@ -24,15 +24,9 @@ showBinaryTree' i (Bin l x r)
           sx = show x
 
 sternbrocotTree :: BinaryTree Rational
-sternbrocotTree = sternbrocotTree' (0%1,1%1,-1%1)
-    where sternbrocotTree' (x,y,z) = Bin (sternbrocotTree' (x, add x y, y)) y (sternbrocotTree' (y, add y z, z))
-          add x y = (numerator x + numerator' y) % (denominator x + denominator' y)
-          numerator' x
-            | x == -1%1 = 1
-            | otherwise = numerator x
-          denominator' x
-            | x == -1%1 = 0
-            | otherwise = denominator x
+sternbrocotTree = go (0,1) (1,1) (1,0)
+    where go (a,b) (c,d) (e,f) =
+              Bin (go (a,b) (a+c,b+d) (c,d)) (c%d) (go (c,d) (c+e,d+f) (e,f))
 
 simplest :: (Double,Double) -> Rational
 simplest (a,b) = simplest' sternbrocotTree (a,b)

@@ -1,13 +1,19 @@
-data BinaryTree a = Bin (BinaryTree a) a (BinaryTree a) | Tip
+# 3a Binary Tree 解説
 
-instance Show a => Show (BinaryTree a) where
-  show = showBinaryTree
+## takeBinaryTree
 
+```haskell
 takeBinaryTree :: Int -> BinaryTree a -> BinaryTree a
 takeBinaryTree 0 _ = Tip
 takeBinaryTree n Tip = Tip
 takeBinaryTree n (Bin l x r) = Bin (takeBinaryTree (n-1) l) x (takeBinaryTree (n-1) r)
+```
 
+おおむねリスト上の関数 take :: Int -> [a] -> [a] と同じです。
+
+## showBinaryTree
+
+```haskell
 showBinaryTree :: Show a => BinaryTree a -> String
 showBinaryTree t = unlines $ showBinaryTree' 0 t
 showBinaryTree' :: Show a => Int -> BinaryTree a -> [String]
@@ -19,6 +25,6 @@ showBinaryTree' i (Bin l x r)
     where sl = showBinaryTree' 1 l
           sr = showBinaryTree' (-1) r
           sx = show x
+```
 
-main = print $ takeBinaryTree 100 $ Bin (Bin (Bin Tip 3 Tip) 2 (Bin (Bin (Bin Tip 6 Tip) 5 (Bin Tip 7 Tip)) 4 (Bin (Bin (Bin Tip 10 Tip) 9 (Bin Tip 11 Tip)) 8 Tip))) 1 (Bin (Bin Tip 13 (Bin Tip 14 Tip)) 12 (Bin Tip 15 Tip))
-
+文字列が二次元の構造を持っているので、文字のリストのリスト（文字列のリスト）として扱うのがいいでしょう。行のリストを取るかそれとも列のリストを取るか、という問題がありますが、この問題では行のリストを取る方が書きやすいと思います。

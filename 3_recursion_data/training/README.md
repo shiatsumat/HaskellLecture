@@ -163,7 +163,7 @@ showBinaryTree :: Show a => BinaryTree a -> String
 main = print $ takeBinaryTree 4 $ Bin (Bin (Bin Tip 3 Tip) 2 (Bin (Bin (Bin Tip 6 Tip) 5 (Bin Tip 7 Tip)) 4 (Bin (Bin (Bin Tip 10 Tip) 9 (Bin Tip 11 Tip)) 8 Tip))) 1 (Bin (Bin Tip 13 (Bin Tip 14 Tip)) 12 (Bin Tip 15 Tip))
 ```
 
-# 3b Calkin-Wilf
+# 3b Calkin-Wilf Tree
 
 Calkin-Wilf木という興味深い木がある。
 
@@ -244,7 +244,7 @@ calkinwilfNext :: Rational -> Rational
 -- Calkin-Wilf列において、一つ後になる有理数
 ```
 
-# 3c Stern-Brocot
+# 3c Stern-Brocot Tree
 
 Stern-Brocot木というこれまた興味深い木がある。
 
