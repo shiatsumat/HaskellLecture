@@ -163,7 +163,7 @@ showBinaryTree :: Show a => BinaryTree a -> String
 main = print $ takeBinaryTree 4 $ Bin (Bin (Bin Tip 3 Tip) 2 (Bin (Bin (Bin Tip 6 Tip) 5 (Bin Tip 7 Tip)) 4 (Bin (Bin (Bin Tip 10 Tip) 9 (Bin Tip 11 Tip)) 8 Tip))) 1 (Bin (Bin Tip 13 (Bin Tip 14 Tip)) 12 (Bin Tip 15 Tip))
 ```
 
-# 3b Calkin-Wilf
+# 3b Calkin-Wilf Tree
 
 Calkin-Wilf木という興味深い木がある。
 
@@ -244,7 +244,7 @@ calkinwilfNext :: Rational -> Rational
 -- Calkin-Wilf列において、一つ後になる有理数
 ```
 
-# 3c Stern-Brocot
+# 3c Stern-Brocot Tree
 
 Stern-Brocot木というこれまた興味深い木がある。
 
@@ -254,7 +254,7 @@ Stern-Brocot木というこれまた興味深い木がある。
 
 この木の作り方を説明するために、まず各節点が3つの正の既約有理数の組からなる木を作る（ここでのみ、1/0も有理数として認める）。根は (0/1, 1/1, 1/0) とし、節点 (a/b, c/d, e/f) の左の子は (a/b, (a+c)/(b+d), c/d)、右の子は (c/d, (c+e)/(d+f), e/f) とする。こうして出来上がった無限二分木の各節点 (x,y,z) を y に変えたものが、Stern-Brocot木である。
 
-この木はさまざまな驚くべき性質をもっている。すべての正の既約有理数がそれぞれ一度だけ現れる。また、図の最下部のように、左から順に節点を並べると、きれいに昇順に並ぶ。
+この木はさまざまな驚くべき性質をもっている。すべての正の既約有理数がそれぞれ一度だけ現れる。また、図の最下部のように、左から順に節点を並べると、0/1, 1/4, 1/3, 2/5, ... 4/1, 1/0と、きれいに昇順に並ぶ。さらに、最下部で隣り合う二数をそれぞれa/bとc/dとすると、常にad+1=bcとなっている。
 
 以上を踏まえ、Binary Tree で実装したデータと関数ももちいて、次の関数を実装せよ。
 
@@ -303,3 +303,27 @@ main = print $ takeBinaryTree 5 sternbrocotTree
 -- main = print $ simplest (3.14,3.15)
 -- main = print $ rationals 20
 ```
+
+# 4 Difference List
+
+私は二分木を平坦化してリストにする関数を作りたいと思い、まず次のように実装した。
+
+```haskell
+data BinaryTree a = Bin (BinaryTree a) a (BinaryTree a) | Tip
+
+flatten :: BinaryTree a -> [a]
+flatten Tip = []
+flatten (Bin l x r) = flatten l ++ [x] ++ flatten r
+```
+
+二分木の節点の個数をnとすると、計算量がO(n)となるものだと信じていた。しかし、最悪計算量はなんとO(n^2)となることがわかった。次の場合である。
+
+```haskell
+a1
++--a2
+   +--a3
+      ......
+         +--an
+```
+
+各節点が左の子を持っていて右の子を持っていない。

@@ -23,12 +23,9 @@ showBinaryTree' i (Bin l x r)
           n = nl + 1 + nr
           sx = show x
 
-top :: BinaryTree a -> a
-top (Bin _ x _) = x
-
 calkinwilfTree :: BinaryTree Rational
-calkinwilfTree = calkinwilfTree' (1%1)
-    where calkinwilfTree' x = Bin (calkinwilfTree' (m%(m+n))) x (calkinwilfTree' ((m+n)%n))
+calkinwilfTree = go (1%1)
+    where go x = Bin (go (m%(m+n))) x (go ((m+n)%n))
             where m = numerator x
                   n = denominator x
 
@@ -36,6 +33,7 @@ calkinwilfSeq :: [Rational]
 calkinwilfSeq = map top queue
     where queue = calkinwilfTree : walk queue
           walk (Bin l _ r : q) = l : r : walk q
+          top (Bin _ x _) = x
 
 calkinwilfSeqAnother :: [Rational]
 calkinwilfSeqAnother = concat $ levels calkinwilfTree
@@ -47,6 +45,16 @@ calkinwilfGet n =  top $ foldr func calkinwilfTree $ digits n
           digits n = mod n 2 : digits (div n 2)
           func 0 (Bin l _ _) = l
           func 1 (Bin _ _ r) = r
+          top (Bin _ x _) = x
+
+calkinwilfGetPrettier :: Int -> Rational
+calkinwilfGetPrettier n = top $ go n
+    where go n
+            | mod n 2 == 0 = left $ go $ div n 2
+            | otherwise    = right $ go $ div n 2
+          left (Bin l _ _) = l
+          right (Bin _ _ r) = r
+          top (Bin _ x _) = x
 
 calkinwilfParent :: Rational -> Rational
 calkinwilfParent x
@@ -55,13 +63,12 @@ calkinwilfParent x
     where m = numerator x
           n = denominator x
 
-div' x y = div (x-1) y
-mod' x y = mod (x-1) y + 1
-
 calkinwilfPrev :: Rational -> Rational
 calkinwilfPrev x = (m' + k * m) % m
     where m = numerator x
           n = denominator x
+          div' x y = div (x-1) y
+          mod' x y = mod (x-1) y + 1
           k = div' n m
           n' = mod' n m
           m' = m - n'
