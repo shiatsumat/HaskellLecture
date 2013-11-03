@@ -304,9 +304,21 @@ main = print $ takeBinaryTree 5 sternbrocotTree
 -- main = print $ rationals 20
 ```
 
+## おまけ
+
+Stern-Brocot木に関する実に興味深い情報がこの一連の記事から得られる。
+
+* http://www.cut-the-knot.org/blue/Stern.shtml
+* http://www.cut-the-knot.org/blue/SB_props.shtml
+* http://www.cut-the-knot.org/blue/encoding.shtml
+* http://www.cut-the-knot.org/blue/chaos_game.shtml
+* http://www.cut-the-knot.org/blue/ContinuedFractions.shtml
+* http://www.cut-the-knot.org/blue/b-tree.shtml
+* http://www.cut-the-knot.org/blue/Fusc.shtml
+
 # 4 Difference List
 
-私は二分木を平坦化してリストにする関数を作りたいと思い、まず次のように実装した。
+魔法少女は二分木を平坦化してリストにする関数を作りたいと思い、まず次のように実装した。
 
 ```haskell
 data BinaryTree a = Bin (BinaryTree a) a (BinaryTree a) | Tip
@@ -316,14 +328,42 @@ flatten Tip = []
 flatten (Bin l x r) = flatten l ++ [x] ++ flatten r
 ```
 
-二分木の節点の個数をnとすると、計算量がO(n)となるものだと信じていた。しかし、最悪計算量はなんとO(n^2)となることがわかった。次の場合である。
+彼女は二分木の節点の個数をnとすると、計算量がO(n)となるものだと信じていた。しかし、最悪計算量はなんとO(n^2)となることがわかった。たとえば次の場合である (n=5とする)。
 
-```haskell
+```
 a1
 +--a2
    +--a3
-      ......
-         +--an
+      +--a4
+         +--a5
 ```
 
-各節点が左の子を持っていて右の子を持っていない。
+この木をflattenに適用した結果は
+
+```haskell
+((([a1]++[a2])++[a3])++[a4])++[a5]
+```
+
+となるので、1+2+3+4+5=(5*4)/2回のコンスの作成が発生する。5をnに一般化すれば、計算量がO(n*(n-1)/2)=O(n^2)となるのだ。
+
+魔法少女はすっかり困ってあなたに助けを求めた。どうにかして、flattenをどんな木に対してもO(n)で動作するように書き直してほしい。
+
+```haskell
+flatten :: BinaryTree a -> [a]
+```
+
+## ひながた
+
+```haskell
+data BinaryTree a = Bin (BinaryTree a) a (BinaryTree a) | Tip
+
+flatten :: BinaryTree a -> [a]
+{- edit here -}
+
+bigtree :: BinaryTree Int
+bigtree = bigtree' 100000
+bigtree' 0 = Tip
+bigtree' n = Bin (bigtree' (n-1)) 0 Tip
+
+main = print $ flatten bigtree
+```
