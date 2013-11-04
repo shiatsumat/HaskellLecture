@@ -168,3 +168,9 @@ pip-log.txt
 
 *.hi
 *.o
+
+#############
+## Others
+#############
+
+kinokkory.exe

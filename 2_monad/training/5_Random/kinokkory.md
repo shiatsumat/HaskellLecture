@@ -1,3 +1,8 @@
+# Random âê‡
+
+## calcPi
+
+```haskell
 import System.Random
 import Control.Monad
 
@@ -8,5 +13,10 @@ calcPi n = do ps <- replicateM n $ do {x<-getRand; y<-getRand; return(x,y)}
 
 getRand :: IO Double
 getRand = getStdRandom $ randomR (-1,1)
+```
 
+## main
+
+```haskell
 main = readLn >>= calcPi >>= print
+```
