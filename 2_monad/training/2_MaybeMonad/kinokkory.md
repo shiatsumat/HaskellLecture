@@ -12,7 +12,7 @@ readInts k s = do (n,s') <- BS.readInt s
                   return (n:ns)
 ```
 
-再帰するというだけでMaybeモナドの基本的な使い方が分かれば十分です。
+再帰するというだけで、Maybeモナドの基本的な使い方がわかれば解けます。
 
 ## main
 
