@@ -1,4 +1,4 @@
-# RWS 解説
+# 7 RWS 解説
 
 ## step
 
@@ -21,6 +21,10 @@ splitLine :: String -> (String,String)
 splitLine s = let (a,_:b) = break (=='\n') s in (a,b)
 ```
 
+ちょっと長いですが、各部分でおこなっていることは単純です。
+
+askはモナドリーダー、tellはモナドライター、getとputはモナドステートのメンバ関数ですが、RWSはモナドリーダー・モナドライター・モナドステートの全てのインスタンスであるので、どの関数も利用できます。
+
 ## robot
 
 ```haskell
@@ -31,6 +35,8 @@ robot = do n <- step
                 0 -> return ()
                 -1 -> tell "Oops, sorry.\n"
 ```
+
+step をひたすら繰り返していくだけです。step の返り値に応じてそのまま続けるかどうか決めればよいのです。
 
 ## main
 

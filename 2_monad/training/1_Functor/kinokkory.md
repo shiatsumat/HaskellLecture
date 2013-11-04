@@ -1,4 +1,4 @@
-# Functor ‰ğà
+# 1 Functor ‰ğà
 
 ```haskell
 import Data.Function

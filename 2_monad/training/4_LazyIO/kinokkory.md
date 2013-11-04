@@ -1,4 +1,4 @@
-# Lazy IO 解説
+# 4 Lazy IO 解説
 
 ## machine
 
@@ -10,6 +10,9 @@ machine' n (s:ss) = case s of
     "sum" -> "the sum is "++show n++"\n"++machine' 0 ss
     _ -> machine' (n+read s) ss
 ```
+
+先に文字列を lines によって行ごとに分割してから、machine' に渡しています。
+また、内部の整数を持つために、machine' に引数として n を持たせています。
 
 ## main
 

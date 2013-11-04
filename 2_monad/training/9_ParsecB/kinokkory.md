@@ -1,4 +1,4 @@
-# Parsec B 解説
+# 9 Parsec B 解説
 
 ## import
 
@@ -7,6 +7,16 @@ import Text.Parsec
 import Text.Parsec.String
 import Control.Applicative ((<$>), (<*>), pure)
 ```
+
+Text.Parsec.String では
+
+```haskell
+type Parser = Parsec String ()
+```
+
+と定義されているので、それを使うためだけにインポートしています。
+
+Applicativeでは (<|>) も定義されていて、Parsecの (<|>) と衝突するので、必要な分だけインポートしています。
 
 ## data
 
@@ -160,3 +170,5 @@ xml = optional (white >> xmldecl) >> white >> element
 main = do s <- getContents
           parseTest xml s
 ```
+
+parseTest はパーサーをデバッグ用に動かすための便利な関数です。

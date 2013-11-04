@@ -1,4 +1,4 @@
-# Monad Trans 解説
+# 6 Monad Trans 解説
 
 ## getSubfolders
 
@@ -6,6 +6,8 @@
 getSubfolders :: FilePath -> ListT IO FilePath
 getSubfolders path = ListT $ getDirectoryContents path >>= return . map ((path++"/")++) . filter (\p -> p/=".."&&p/=".") >>= filterM doesDirectoryExist
 ```
+
+ListT というデータ構築子をつかうことが重要です。
 
 ## getNSubfolders
 
@@ -18,6 +20,9 @@ getNSubfolders path n = do p <- getNSubfolders path (n-1)
                            return q
 ```
 
+あとは getSubfolders をもちいてリストモナドと同様に行えます。
+lift で IO を持ち上げられることが重要です。
+
 ## main
 
 ```haskell
@@ -26,3 +31,5 @@ main = do path <- getLine
           l <- runListT $ getNSubfolders path n
           print l
 ```
+
+ここで runListT をもちいています。

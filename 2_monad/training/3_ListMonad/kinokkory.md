@@ -1,4 +1,4 @@
-# List Monad 解説
+# 3 List Monad 解説
 
 ## dice
 
@@ -14,6 +14,10 @@ dice as g n = sort $ nub $ do
     if x==g || x+a>=g then return g else
         if x+a<0 then return 0 else return (x+a)
 ```
+
+リストモナドの基本的な使い方です。ただ、結果を重複なく昇順に並べるために nub で重複を取り除いたあと sort で昇順に並べています。
+
+ちなみに、降順にしたい場合は sortBy (flip compare) とすればよいです。
 
 ## main
 
